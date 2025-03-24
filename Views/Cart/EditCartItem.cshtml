@@ -1,0 +1,13 @@
+﻿<div class="card text-center p-4 shadow">
+    <form method="post" asp-controller="Cart" asp-action="ApplyChanges">
+        <h2 class="card-title">@Model.Product.Name</h2>
+        <p class="card-text">@Model.Product.Description</p>
+        <p class="fw-bold">Price: @Model.Product.Price @Model.Product.ISO</p>
+        <p class="text-muted">Available Quantity: @Model.Product.Stock</p>
+        <div class="mb-3">
+            <input type="number" name="quantity" value="@Model.Quantity" class="form-control" aria-describedby="emailHelp" placeholder="Desired Quantity">
+            <input hidden name="cartItemId" value="@Model.CartItemId" />
+        </div>
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+    </form>
+</div>

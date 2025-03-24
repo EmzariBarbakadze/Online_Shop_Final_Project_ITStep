@@ -1,0 +1,59 @@
+﻿<div class="container mt-4">
+    <h2 class="mb-3">User Profile</h2>
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">@Model.User.FirstName @Model.User.LastName</h5>
+            <p class="card-text"><strong>Email:</strong> @Model.User.Email</p>
+            <p class="card-text"><strong>Joined On:</strong> @Model.User.CreateDate.ToShortDateString()</p>
+        </div>
+    </div>
+
+    <h3 class="mt-4">Account Balance</h3>
+
+    <div class="card">
+        <div class="card-body">
+            <p><strong>Balance:</strong> @Model.UserBalance.Balance.ToString("N2") @Model.UserBalance.ISO</p>
+        </div>
+        <div class="card-body mt-3">
+            <a class="btn btn-secondary w-25" asp-controller="Balance" asp-action="Deposit">Deposit Money</a>
+            <a class ="btn btn-dark w-25" asp-controller="Balance" asp-action="Withdraw">Withdraw Money</a>
+        </div>
+    </div>
+
+    <h4 class="mt-4">Orders</h4>
+    <div class="card">        
+        <div class="card-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr class="table-primary">
+                        <th>OrderId</th>
+                        <th>Price</th>
+                        <th>Currency</th>
+                        <th>Status</th>
+                        <th>Create Date</th>
+                        <th>Modify Date</th>
+                        <th>Order details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var obj in Model.Orders)
+                    {
+                        <tr class="table-active">
+                            <td>@obj.OrderId</td>
+                            <td>@obj.TotalPrice</td>
+                            <td>@obj.ISO</td>
+                            <td>@obj.Status</td>
+                            <td>@obj.CreateDate</td>
+                            <td>@obj.UpdateDate</td>
+                            <td>
+                                <a class="btn btn-primary" asp-controller="Order" asp-action="GetOrderDetails" asp-route-orderId="@obj.OrderId">See details</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

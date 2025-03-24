@@ -1,0 +1,25 @@
+﻿@using Microsoft.AspNetCore.Identity;
+
+@model Online_Shop_Final_Project_ITStep.Models.VM.AddCategoryVM;
+
+@{
+    ViewData["Title"] = "Add Category";
+}
+
+<div class="container">
+    <h2 class="mb-4">Add New Category</h2>
+
+    <form asp-action="AddCategory" method="post">
+        <div class="mb-3">
+            <label asp-for="Name" class="form-label">Category Name</label>
+            <input asp-for="Name" class="form-control" placeholder="Enter product name">
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Add Category</button>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,59 @@
+﻿@using Microsoft.AspNetCore.Identity;
+
+@{
+    ViewData["Title"] = "Favourites Page";
+
+    bool checkNull = true;
+}
+
+<div class="container mt-4">
+    @if (Model != null && Model.User != null && Model.Products != null && Model.FavouriteProducts != null)
+    {
+        <h3>
+            @Model.User.FirstName's favourite products:
+        </h3>
+        <div class="row">
+            @foreach (var obj in Model.Products)
+            {
+                foreach (var favObj in Model.FavouriteProducts)
+                {
+                    if (obj?.ProductId == favObj?.ProductId && favObj?.UserId == Model.User.Id && obj?.IsActive == true && favObj?.IsActive == true)
+                    {
+                        checkNull = false;
+                        <div class="col-md-4 mb-4">
+                            <div class="card shadow-lg p-3">
+                                <div class="card-body">
+                                    <h5 class="card-title">@obj.Name</h5>
+                                    <p class="card-text text-success">Price: <strong>@obj.Price @obj.ISO</strong></p>
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        <a class="btn btn-primary add-to-cart" asp-controller="Cart" asp-action="AddToCartPage" asp-route-id="@obj.ProductId">Add To Cart</a>
+                                        <a class="btn btn-secondary favourite-btn" asp-controller="FavouriteProducts" asp-action="ModifyFavourites" asp-route-productId="@obj.ProductId"><i class="bi bi-heart-fill"></i></a>
+                                    }
+                                    else
+                                    {
+                                        <a class="btn btn-primary add-to-cart" asp-controller="" asp-action="">Add To Cart</a>
+                                        <a class="btn btn-secondary favourite-btn" asp-controller="Auth" asp-action="SignIn"><i class="bi bi-heart"></i></a>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            }
+
+            @if (checkNull == true)
+            {
+                <h3>No favourite products found</h3>
+            }
+        </div>
+    }
+    else
+    {
+        <h3>No favourite products found</h3>
+    }
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

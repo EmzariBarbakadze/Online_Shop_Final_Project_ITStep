@@ -1,0 +1,31 @@
+﻿<div>
+    <h4 class="mt-4">Order items</h4>
+    <a class="btn btn-secondary" asp-controller="PersonalInfo" asp-action="PersonalInfo">go back</a>
+</div>
+<div class="card">
+    <div class="card-body">
+        <table class="table table-hover">
+            <thead>
+                <tr class="table-primary">
+                    <th>Order id</th>
+                    <th>Product id</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Currency</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var obj in Model)
+                {
+                    <tr class="table-active">
+                        <td>@obj.OrderId</td>
+                        <td>@obj.ProductId</td>
+                        <td>@obj.Quantity</td>
+                        <td>@obj.TotalItemsPrice</td>
+                        <td>@obj.ISO</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
