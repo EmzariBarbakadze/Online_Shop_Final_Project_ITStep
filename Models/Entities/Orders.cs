@@ -12,7 +12,7 @@ namespace Online_Shop_Final_Project_ITStep.Models.Entities
         public string UserId { get; set; }
 
         [Range(0, int.MaxValue)]
-        public int TotalPrice { get; set; }
+        public decimal TotalPrice { get; set; }
 
         public ISOs ISO { get; set; } = ISOs.GEL;
 

@@ -12,8 +12,8 @@ using Online_Shop_Final_Project_ITStep.Context;
 namespace Online_Shop_Final_Project_ITStep.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250323183805_IncludeISOInOrders2")]
-    partial class IncludeISOInOrders2
+    [Migration("20250327074606_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

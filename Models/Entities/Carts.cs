@@ -11,9 +11,6 @@ namespace Online_Shop_Final_Project_ITStep.Models.Entities
         [ForeignKey("User")]
         public string UserId { get; set; }
 
-        [Range(0, int.MaxValue)]
-        public int TotalPrice { get; set; } = 0;
-
         public DateTime UpdateDate { get; set; } = DateTime.Now;
 
         // -----------------------

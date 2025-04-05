@@ -36,7 +36,7 @@ namespace Online_Shop_Final_Project_ITStep.Controllers
 
             products_favProducts.User = await _userManager.GetUserAsync(User);
 
-            if(products_favProducts == null)
+            if (products_favProducts == null)
             {
                 return View();
             }
@@ -49,7 +49,7 @@ namespace Online_Shop_Final_Project_ITStep.Controllers
         {
             var user = await _userManager.GetUserAsync(User);
 
-            if(user == null)
+            if (user == null)
             {
                 Console.WriteLine("User not logged in");
 
@@ -64,6 +64,27 @@ namespace Online_Shop_Final_Project_ITStep.Controllers
             }
 
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Search(string search)
+        {
+            var obj = new HomeIndexVM();
+
+            var response = await _service.Search(search);
+
+            if (!response.success)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            obj.Products = response.Data;
+
+            obj.FavouriteProducts = await _service.GetFavouriteProducts();
+
+            obj.User = await _userManager.GetUserAsync(User);
+
+            return View(obj);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

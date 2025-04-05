@@ -17,7 +17,7 @@ namespace Online_Shop_Final_Project_ITStep.Services
             _context = context;
         }
 
-        public async Task<ServiceResponse<decimal>> AddToCart(int quantity, int productId, string userId)
+        public async Task<ServiceResponse<decimal>> AddToCart(uint quantity, int productId, string userId)
         {
             var response = new ServiceResponse<decimal>();
 
@@ -65,9 +65,8 @@ namespace Online_Shop_Final_Project_ITStep.Services
             {
                 if (item.ProductId == productId)
                 {
-                    item.Quantity += quantity;
-                    item.TotalItemPrice += product.Price * quantity;
-                    userCart.TotalPrice += product.Price * quantity;
+                    item.Quantity += ((int)quantity);
+                    item.TotalItemPrice += product.Price * ((int)quantity);
 
                     _context.Carts.Update(userCart);
                     _context.CartItems.Update(item);
@@ -84,11 +83,9 @@ namespace Online_Shop_Final_Project_ITStep.Services
                 {
                     CartId = userCart.CartId,
                     ProductId = productId,
-                    Quantity = quantity,
-                    TotalItemPrice = product.Price * quantity
+                    Quantity = ((int)quantity),
+                    TotalItemPrice = product.Price * ((int)quantity)
                 };
-
-                userCart.TotalPrice += product.Price * quantity;
 
                 _context.Carts.Update(userCart);
                 await _context.CartItems.AddAsync(cartItem);
@@ -293,7 +290,6 @@ namespace Online_Shop_Final_Project_ITStep.Services
                 cartTotalPrice += obj.TotalItemPrice;
             }
 
-            cart.TotalPrice = cartTotalPrice;
 
             _context.Carts.Update(cart);
             await _context.SaveChangesAsync();

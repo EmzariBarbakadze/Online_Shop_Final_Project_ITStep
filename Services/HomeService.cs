@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Online_Shop_Final_Project_ITStep.Context;
 using Online_Shop_Final_Project_ITStep.Interfaces;
 using Online_Shop_Final_Project_ITStep.Models;
@@ -121,6 +122,41 @@ namespace Online_Shop_Final_Project_ITStep.Services
             }
 
             return favouriteProducts;
+        }
+
+        public async Task<ServiceResponse<List<Products>>> Search(string search)
+        {
+            var response = new ServiceResponse<List<Products>>();
+
+            if (search.IsNullOrEmpty())
+            {
+                response.success = false;
+                response.Message = "search input can't be empty";
+
+                Console.WriteLine(response.Message);
+
+                return response;
+            }
+
+            var products = await _context.Products.Where(x => x.Name.ToLower().Contains(search.ToLower())).ToListAsync();
+
+            if(products.IsNullOrEmpty())
+            {
+                response.success = false;
+                response.Message = "No products found";
+
+                Console.WriteLine(response.Message);
+
+                return response;
+            }
+
+            response.success = true;
+            response.Message = "Search was successful";
+            response.Data = products;
+
+            Console.WriteLine(response.Data);
+
+            return response;
         }
     }
 }

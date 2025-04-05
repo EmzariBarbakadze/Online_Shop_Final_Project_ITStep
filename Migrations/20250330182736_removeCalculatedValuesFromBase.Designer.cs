@@ -12,8 +12,8 @@ using Online_Shop_Final_Project_ITStep.Context;
 namespace Online_Shop_Final_Project_ITStep.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250323180015_changeUserIdTypeInOrders")]
-    partial class changeUserIdTypeInOrders
+    [Migration("20250330182736_removeCalculatedValuesFromBase")]
+    partial class removeCalculatedValuesFromBase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -198,9 +198,6 @@ namespace Online_Shop_Final_Project_ITStep.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CartId"));
 
-                    b.Property<int>("TotalPrice")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("UpdateDate")
                         .HasColumnType("datetime2");
 
@@ -254,9 +251,8 @@ namespace Online_Shop_Final_Project_ITStep.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderItemId"));
 
-                    b.Property<string>("ISO")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("ISO")
+                        .HasColumnType("int");
 
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
@@ -290,16 +286,15 @@ namespace Online_Shop_Final_Project_ITStep.Migrations
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("ISO")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("ISO")
+                        .HasColumnType("int");
 
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TotalPrice")
-                        .HasColumnType("int");
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("UpdateDate")
                         .HasColumnType("datetime2");

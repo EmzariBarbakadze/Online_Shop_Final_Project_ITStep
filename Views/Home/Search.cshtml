@@ -1,0 +1,52 @@
+﻿@using Microsoft.AspNetCore.Identity;
+
+@{
+    bool found = false;
+}
+
+<div class="container mt-4">
+    <h2>Searched Products</h2>
+    <div class="row">
+        @foreach (var obj in Model.Products)
+        {
+            found = false;
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-lg p-3">
+                    <div class="card-body">
+                        <h5 class="card-title">@obj.Name</h5>
+                        <p class="card-text text-success">Price: <strong>@obj.Price @obj.ISO</strong></p>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            @foreach (var favProduct in Model.FavouriteProducts)
+                            {
+                                @if (favProduct.ProductId == obj.ProductId && Model.User.Id == favProduct.UserId && favProduct.IsActive == true)
+                                {
+                                    <a class="btn btn-primary add-to-cart" asp-controller="Cart" asp-action="AddToCartPage" asp-route-id="@obj.ProductId">Add To Cart</a>
+                                    <a class="btn btn-secondary favourite-btn" asp-controller="Home" asp-action="AddToFavourites" asp-route-productId="@obj.ProductId"><i class="bi bi-heart-fill"></i></a>
+
+                                    found = true;
+                                    break;
+                                }
+                            }
+
+                            if (found == false)
+                            {
+                                <a class="btn btn-primary add-to-cart" asp-controller="Cart" asp-action="AddToCartPage" asp-route-id="@obj.ProductId">Add To Cart</a>
+                                <a class="btn btn-secondary favourite-btn" asp-controller="Home" asp-action="AddToFavourites" asp-route-productId="@obj.ProductId"><i class="bi bi-heart"></i></a>
+                            }
+                        }
+                        else
+                        {
+                            <a class="btn btn-primary add-to-cart" asp-controller="" asp-action="">Add To Cart</a>
+                            <a class="btn btn-secondary favourite-btn" asp-controller="Auth" asp-action="SignIn"><i class="bi bi-heart"></i></a>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

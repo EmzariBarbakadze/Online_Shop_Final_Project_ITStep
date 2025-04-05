@@ -202,22 +202,22 @@ namespace Online_Shop_Final_Project_ITStep.Migrations
                 {
                     OrderId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     TotalPrice = table.Column<int>(type: "int", nullable: false),
-                    ISO = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ISO = table.Column<int>(type: "int", nullable: false),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UserId1 = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Orders", x => x.OrderId);
                     table.ForeignKey(
-                        name: "FK_Orders_AspNetUsers_UserId1",
-                        column: x => x.UserId1,
+                        name: "FK_Orders_AspNetUsers_UserId",
+                        column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -286,7 +286,7 @@ namespace Online_Shop_Final_Project_ITStep.Migrations
                     ProductId = table.Column<int>(type: "int", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
                     TotalItemPrice = table.Column<int>(type: "int", nullable: false),
-                    ISO = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    ISO = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -343,7 +343,7 @@ namespace Online_Shop_Final_Project_ITStep.Migrations
                     ProductId = table.Column<int>(type: "int", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
                     TotalItemsPrice = table.Column<int>(type: "int", nullable: false),
-                    ISO = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    ISO = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -438,9 +438,9 @@ namespace Online_Shop_Final_Project_ITStep.Migrations
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Orders_UserId1",
+                name: "IX_Orders_UserId",
                 table: "Orders",
-                column: "UserId1");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_ProductCategoryId",

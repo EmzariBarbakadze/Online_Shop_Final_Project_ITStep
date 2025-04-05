@@ -31,7 +31,7 @@ namespace Online_Shop_Final_Project_ITStep.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddToCart(int quantity, int productId)
+        public async Task<IActionResult> AddToCart(uint quantity, int productId)
         {
             if (!ModelState.IsValid)
             {

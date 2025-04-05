@@ -11,5 +11,7 @@ namespace Online_Shop_Final_Project_ITStep.Interfaces
         public Task<List<FavouriteProducts>> GetFavouriteProducts();
 
         public Task<ServiceResponse<Products>> AddToFavourites(int productId, string userId);
+
+        public Task<ServiceResponse<List<Products>>> Search(string search);
     }
 }

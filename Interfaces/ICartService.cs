@@ -8,7 +8,7 @@ namespace Online_Shop_Final_Project_ITStep.Interfaces
     {
         public Task<ServiceResponse<Products>> GetProductById(int productId);
 
-        public Task<ServiceResponse<decimal>> AddToCart(int quantity, int productId, string userId);
+        public Task<ServiceResponse<decimal>> AddToCart(uint quantity, int productId, string userId);
 
         public Task<ServiceResponse<decimal>> RemoveFromCart(int cartItemId);
 
